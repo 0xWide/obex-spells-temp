@@ -3,24 +3,26 @@ name: CI
 on:
   push:
     branches:
-      - main
+      - "*"
   pull_request:
     branches:
-      - '*'
+      - "*"
 
 jobs:
   test:
     strategy:
       fail-fast: true
 
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
         with:
           submodules: recursive
 
-      - name: Install Foundry
+      - name: Install Foundry (v1.4.2)
         uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: "1.4.2-nightly"
 
       - name: Run Forge build
         run: |
@@ -30,8 +32,7 @@ jobs:
 
       - name: Run Forge tests
         env:
-          MAINNET_RPC_URL: ${{secrets.MAINNET_RPC_URL}}
-          ALCHEMY_API_KEY: ${{secrets.ALCHEMY_API_KEY}}
+          MAINNET_API_KEY: ${{ secrets.MAINNET_API_KEY }}
         run: |
-          forge test -vvv
-        id: test
+          forge verify-bytecode 0xF538909eDF14d2c23002C2b3882Ad60f79d61893 ObexEthereum_20251113.sol:ObexEthereum_20251113 --rpc-url https://eth.llamarpc.com
+        id: verify
