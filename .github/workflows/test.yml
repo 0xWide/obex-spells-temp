@@ -29,6 +29,8 @@ jobs:
         id: build
 
       - name: Run Forge tests
+        env:
+          MAINNET_API_KEY: ${{ secrets.MAINNET_API_KEY }}
         run: |
           forge verify-bytecode 0xF538909eDF14d2c23002C2b3882Ad60f79d61893  ObexEthereum_20251113.sol:ObexEthereum_20251113 --rpc-url https://eth.llamarpc.com
         id: verify
