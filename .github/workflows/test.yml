@@ -22,7 +22,7 @@ jobs:
       - name: Install Foundry (v1.4.2)
         uses: foundry-rs/foundry-toolchain@v1
         with:
-          version: "1.4.2"
+          version: "1.4.2-nightly"
 
       - name: Run Forge build
         run: |
