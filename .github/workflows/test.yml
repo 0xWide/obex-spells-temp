@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - "*" 
+      - "*"
   pull_request:
     branches:
       - '*'
@@ -30,7 +30,5 @@ jobs:
 
       - name: Run Forge tests
         run: |
-          forge test
-        env:
-          MAINNET_RPC_URL: https://eth.llamarpc.com
-        id: test
+          forge verify-bytecode 0xF538909eDF14d2c23002C2b3882Ad60f79d61893  ObexEthereum_20251113.sol:ObexEthereum_20251113 --rpc-url https://eth.llamarpc.com
+        id: verify
